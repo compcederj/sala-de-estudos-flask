@@ -1,0 +1,9 @@
+[default]
+DEBUG = false
+EXTENSIONS = [
+]
+
+[development]
+DEBUG = true
+
+[test]
