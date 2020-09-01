@@ -343,3 +343,7 @@ Temporary Items
 .apdisk
 **/*.secrets.*
 !**/*.secrets.toml.example
+
+**/.python-version
+
+**/*.idea/**
