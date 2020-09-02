@@ -1,12 +1,12 @@
-from datetime import datetime
 from enum import Enum
 
 from sala_de_estudos_flask.ext.db import db
+from sala_de_estudos_flask.ext.models import Professor
 
 
 class SubjectTypeEnum(Enum):
-    MANDATORY = 1
-    OPTIONAL = 2
+    mandatory = 1
+    optional = 2
 
 
 class Subject(db.Model):
@@ -53,6 +53,9 @@ class ProfessorSubject(db.Model):
         db.ForeignKey("professors.id", ondelete="SET NULL", onupdate="CASCADE"),
         primary_key=True
     )
+
+    subject = db.relationship(Subject, backref="professor_subject")
+    professor = db.relationship(Professor, backref="professor_subject")
 
     def save(self):
         db.session.add(self)
