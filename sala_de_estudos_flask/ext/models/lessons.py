@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sala_de_estudos_flask.ext.db import db
+from sala_de_estudos_flask.ext.models import Subject, Professor
 
 
 class Lesson(db.Model):
@@ -54,6 +55,10 @@ class ProfessorLesson(db.Model):
         db.ForeignKey("professors.id", ondelete="SET NULL", onupdate="CASCADE"),
         primary_key=True
     )
+
+    lesson = db.relationship(Lesson, backref="professor_lesson")
+    subject = db.relationship(Subject, backref="professor_lesson")
+    professor = db.relationship(Professor, backref="professor_lesson")
 
     def save(self):
         db.session.add(self)
