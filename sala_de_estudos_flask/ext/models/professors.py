@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from sala_de_estudos_flask.ext.db import db
 
 
@@ -23,3 +21,6 @@ class Professor(db.Model):
                 f"email: {self.email}, "
                 f"site: {self.site}"
                 f">")
+
+    def __str__(self):
+        return self.name

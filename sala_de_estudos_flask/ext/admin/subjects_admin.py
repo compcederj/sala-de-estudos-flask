@@ -11,7 +11,8 @@ class SubjectsView(ModelView):
         "code": "Código da disciplina ead050XX",
         "type": "Tipo (obrigatória, optativa)",
         "workload": "Carga Horária",
+        "professor_subject": "Professores responsável pela disciplina"
     }
     column_exclude_list = ["created_at", "updated_at"]
 
-    form_excluded_columns = ["created_at", "updated_at", "lesson", "professor_lesson"]
+    form_excluded_columns = ["created_at", "updated_at", "lesson", "professor_lesson", "evaluation"]

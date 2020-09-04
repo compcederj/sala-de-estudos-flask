@@ -6,14 +6,14 @@ from sala_de_estudos_flask.ext.models.subjects import Subject
 
 
 class EvaluationTypeEnum(Enum):
-    gabarito = 1
-    questoes = 2
-    respostas = 3
+    GABARITO = 1
+    QUESTOES = 2
+    RESPOSTAS = 3
 
 
 class PeriodEnum(Enum):
-    primeiro = 1
-    segundo = 2
+    PRIMEIRO = 1
+    SEGUNDO = 2
 
 
 class EvaluationKey(db.Model):

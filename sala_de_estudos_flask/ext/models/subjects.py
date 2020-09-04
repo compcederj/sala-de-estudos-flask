@@ -5,8 +5,8 @@ from sala_de_estudos_flask.ext.models.professors import Professor
 
 
 class SubjectTypeEnum(Enum):
-    mandatory = 1
-    optional = 2
+    OBRIGATORIA = 1
+    OPCIONAL = 2
 
 
 class Subject(db.Model):

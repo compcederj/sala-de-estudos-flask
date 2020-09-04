@@ -1,8 +1,11 @@
 from flask_admin.contrib.sqla import ModelView
 
+from sala_de_estudos_flask.ext.models.lessons import ProfessorLesson
+
 
 class LessonsView(ModelView):
     """Lessons admin interface"""
+    inline_models = (ProfessorLesson,)
     column_labels = {
         "subject": "Disciplina",
         "index": "Aula número",
