@@ -1,7 +1,7 @@
 from enum import Enum
 
 from sala_de_estudos_flask.ext.db import db
-from sala_de_estudos_flask.ext.models import Professor
+from sala_de_estudos_flask.ext.models.professors import Professor
 
 
 class SubjectTypeEnum(Enum):

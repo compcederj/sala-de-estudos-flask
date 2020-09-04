@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from sala_de_estudos_flask.ext.db import db
-from sala_de_estudos_flask.ext.models import Subject, Professor
+from sala_de_estudos_flask.ext.models.subjects import Subject
+from sala_de_estudos_flask.ext.models.professors import Professor
 
 
 class Lesson(db.Model):
@@ -19,6 +18,8 @@ class Lesson(db.Model):
     )
     created_at = db.Column("created_at", db.DateTime(), server_default=db.func.now())
     updated_at = db.Column("updated_at", db.DateTime(), server_default=db.func.now(), onupdate=db.func.now())
+
+    subject = db.relationship(Subject, backref="lesson")
 
     def save(self):
         db.session.add(self)

@@ -1,6 +1,19 @@
 from enum import Enum
 
 from sala_de_estudos_flask.ext.db import db
+# from sala_de_estudos_flask.ext.models import Subject
+from sala_de_estudos_flask.ext.models.subjects import Subject
+
+
+class EvaluationTypeEnum(Enum):
+    gabarito = 1
+    questoes = 2
+    respostas = 3
+
+
+class PeriodEnum(Enum):
+    primeiro = 1
+    segundo = 2
 
 
 class EvaluationKey(db.Model):
@@ -15,29 +28,21 @@ class EvaluationKey(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Lesson: "
+        return (f"<EvaluationKey: "
                 f"id: {self.id}, "
                 f"description: {self.description}"
                 f">")
 
-
-class EvaluatioTypeEnum(Enum):
-    ANSWER_KEY = 1
-    QUESTION = 2
-    ANSWER = 3
-
-
-class PeriodEnum(Enum):
-    FIRST = 1
-    SECOND = 2
+    def __str__(self):
+        return self.description
 
 
 class Evaluation(db.Model):
     __tablename__ = "evaluations"
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
-    type = db.Column("type", db.Enum(EvaluatioTypeEnum), nullable=False)
+    type = db.Column("type", db.Enum(EvaluationTypeEnum), nullable=False)
     year = db.Column("year", db.Integer, nullable=False)
-    period = db.Column("period", db.Enum(PeriodEnum))
+    period = db.Column("period", db.Enum(PeriodEnum), nullable=False)
     evaluation_key_id = db.Column(
         "evaluation_key_id",
         db.Integer,
@@ -54,12 +59,15 @@ class Evaluation(db.Model):
     created_at = db.Column("created_at", db.DateTime(), server_default=db.func.now())
     updated_at = db.Column("updated_at", db.DateTime(), server_default=db.func.now(), onupdate=db.func.now())
 
+    evaluation_key = db.relationship(EvaluationKey, backref="evaluation")
+    subject = db.relationship(Subject, backref="evaluation")
+
     def save(self):
         db.session.add(self)
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Lesson: "
+        return (f"<Evaluation: "
                 f"id: {self.id}, "
                 f"type: {self.type}, "
                 f"year: {self.year}, "
@@ -68,3 +76,6 @@ class Evaluation(db.Model):
                 f"download_link: {self.download_link}, "
                 f"subject_id: {self.subject_id}"
                 f">")
+
+    def __str__(self):
+        return f"{self.subject.name}_{self.year}.{self.period}_{self.type}"
