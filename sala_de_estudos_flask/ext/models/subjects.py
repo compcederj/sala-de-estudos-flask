@@ -16,6 +16,7 @@ class Subject(db.Model):
     name = db.Column("name", db.Unicode(70), nullable=False)
     type = db.Column("type", db.Enum(SubjectTypeEnum), nullable=False)
     workload = db.Column("workload", db.Integer, nullable=False)
+    amount_lessons = db.Column("amount_lessons", db.Integer, nullable=False, default=0)
     drive_link = db.Column("drive_link", db.Unicode())
     whatsapp_link = db.Column("whatsapp_link", db.Unicode())
     github_link = db.Column("github_link", db.Unicode())
