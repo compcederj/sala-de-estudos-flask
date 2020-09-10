@@ -8,7 +8,7 @@ class LessonsView(ModelView):
     inline_models = (ProfessorLesson,)
     column_labels = {
         "subject": "Disciplina",
-        "index": "Aula número",
+        "lesson_index": "Aula número",
         "title": "Título da Aula",
         "length": "Duração",
     }

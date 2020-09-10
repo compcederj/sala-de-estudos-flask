@@ -6,10 +6,16 @@ from sala_de_estudos_flask.ext.models.professors import Professor
 class Lesson(db.Model):
     __tablename__ = "lessons"
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
-    index = db.Column("index", db.Integer, nullable=False)
-    title = db.Column("title", db.Unicode(100))
-    length = db.Column("length", db.Time())
-    url = db.Column("url", db.Unicode(), nullable=False)
+    lesson_index = db.Column("index", db.Unicode(10), nullable=False, index=True)
+    title = db.Column("title", db.Unicode(100), nullable=False)
+    length = db.Column("length", db.Integer)
+    original_url = db.Column("original_url", db.Unicode(), nullable=False)
+    index_file = db.Column("index_file", db.Unicode(100), nullable=False)
+    sync_file = db.Column("sync_file", db.Unicode(100), nullable=False)
+    mp4_video_file = db.Column("mp4_video_file", db.Unicode(100), nullable=False)
+    webm_video_file = db.Column("webm_video_file", db.Unicode(100), nullable=False)
+    thumbnail = db.Column("thumbnail", db.Unicode(100), nullable=False)
+
     subject_id = db.Column(
         "subject_id",
         db.Integer,
