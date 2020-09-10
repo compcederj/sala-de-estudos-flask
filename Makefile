@@ -14,6 +14,7 @@ clean:
 format:
 	isort **/*.py
 	black -l 79 **/*.py
+	dephell deps convert
 
 install:
 	pip install -e .
@@ -25,7 +26,7 @@ run-dev:
 	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=development flask run
 
 run:
-	gunicorn 'holiday_api.app:create_app()'
+	gunicorn 'sala_de_estudos_flask.app:create_app()'
 
 test:
 	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=test flask create-database
