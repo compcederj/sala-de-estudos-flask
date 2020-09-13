@@ -12,9 +12,9 @@ clean:
 	pip install -e .[dev] --upgrade --no-cache
 
 format:
+	dephell deps convert
 	isort **/*.py
 	black -l 79 **/*.py
-	dephell deps convert
 
 install:
 	pip install -e .

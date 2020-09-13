@@ -20,7 +20,9 @@ setup(
     author_email='thiagoborges@id.uff.br',
     packages=[
         'sala_de_estudos_flask', 'sala_de_estudos_flask.ext',
-        'sala_de_estudos_flask.ext.admin', 'sala_de_estudos_flask.ext.cli',
+        'sala_de_estudos_flask.ext.admin', 'sala_de_estudos_flask.ext.api',
+        'sala_de_estudos_flask.ext.api.controllers',
+        'sala_de_estudos_flask.ext.cli', 'sala_de_estudos_flask.ext.dao',
         'sala_de_estudos_flask.ext.db', 'sala_de_estudos_flask.ext.models'
     ],
     package_dir={"": "."},
