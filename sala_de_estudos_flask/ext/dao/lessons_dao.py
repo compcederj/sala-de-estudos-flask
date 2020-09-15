@@ -1,3 +1,5 @@
+from typing import List, Dict, Union
+
 from sala_de_estudos_flask.ext.db import db
 from sala_de_estudos_flask.ext.models.lessons import Lesson
 
@@ -5,8 +7,8 @@ from sala_de_estudos_flask.ext.models.lessons import Lesson
 class LessonsDAO:
 
     @staticmethod
-    def list_lessons_by_subject(subject_id):
-        lessons = (db.session.query(Lesson.id, Lesson.title, Lesson.lesson_index, Lesson.lesson_index)
+    def list_lessons_by_subject(subject_id) -> List[Dict[str, Union[int, str]]]:
+        lessons = (db.session.query(Lesson.id, Lesson.title, Lesson.lesson_index, Lesson.thumbnail)
                    .filter(Lesson.subject_id == subject_id)
                    .all())
 
