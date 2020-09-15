@@ -71,6 +71,7 @@ $ make run-dev
         "material_design_icon": null, 
         "name": "Análise de Sistemas"
       },
+      ...
     ]
     ```
  
@@ -91,3 +92,24 @@ $ make run-dev
     }
     ```
  
+ * `/api/v1/subject/<subject_id>/lessons`
+ 
+    Returns a list of lessons
+    
+    ```json
+    [
+      {
+        "id": 1, 
+        "lesson_index": "Aula 001", 
+        "thumbnail": "http://va05-idc.rnp.br/riotransfer/cederj/sistemas_comp/ead05006/Aula_001/Aula_001_t.png", 
+        "title": "Vetores"
+      }, 
+      {
+        "id": 2, 
+        "lesson_index": "Aula 002", 
+        "thumbnail": "http://va05-idc.rnp.br/riotransfer/cederj/sistemas_comp/ead05006/Aula_002/02.png", 
+        "title": "Espaços vetoriais"
+      },
+      ...
+    ]
+    ```
