@@ -12,14 +12,20 @@ class SubjectTypeEnum(Enum):
 class Subject(db.Model):
     __tablename__ = "subjects"
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
+
     code = db.Column("code", db.Unicode(8), unique=True, nullable=False)
     name = db.Column("name", db.Unicode(70), nullable=False)
     type = db.Column("type", db.Enum(SubjectTypeEnum), nullable=False)
-    workload = db.Column("workload", db.Integer, nullable=False)
+
+    workload = db.Column("workload", db.Time(), nullable=False)
     amount_lessons = db.Column("amount_lessons", db.Integer, nullable=False, default=0)
+
     drive_link = db.Column("drive_link", db.Unicode())
     whatsapp_link = db.Column("whatsapp_link", db.Unicode())
     github_link = db.Column("github_link", db.Unicode())
+
+    material_design_icon = db.Column("material_design_icon", db.Unicode())
+
     created_at = db.Column("created_at", db.DateTime(), server_default=db.func.now())
     updated_at = db.Column("updated_at", db.DateTime(), server_default=db.func.now(), onupdate=db.func.now())
 
