@@ -47,3 +47,47 @@ Now you can run this application in development mode.
 ```shell script
 $ make run-dev
 ```
+
+
+## Usage
+
+### Subjects
+
+* `/api/v1/subjects/`
+    
+    Returns a list of all subjects on the database
+    
+    ```json
+    [  
+      {
+        "code": "ead05006", 
+        "id": 1, 
+        "material_design_icon": null, 
+        "name": "Álgebra Lienar"
+      }, 
+      {
+        "code": "ead05018", 
+        "id": 2, 
+        "material_design_icon": null, 
+        "name": "Análise de Sistemas"
+      },
+    ]
+    ```
+ 
+ * `/api/v1/subject/<id>/`
+
+    Returns data referent for a subjects
+    
+    ```json
+    {
+      "amount_lessons": 15, 
+      "code": "ead05006", 
+      "drive_link": null, 
+      "github_link": null, 
+      "id": 1, 
+      "name": "Álgebra Lienar", 
+      "type": "OBRIGATÓRIA", 
+      "workload": 80
+    }
+    ```
+ 
