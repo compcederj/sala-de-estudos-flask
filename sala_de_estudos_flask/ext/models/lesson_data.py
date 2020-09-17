@@ -3,7 +3,7 @@ from sala_de_estudos_flask.ext.models.lessons import Lesson
 
 
 class LessonData(db.Model):
-    __tablename__ = "lesson_datas"
+    __tablename__ = "lesson_data"
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
     raw_xml = db.Column("xml_raw_data", db.Text)
     json_xml = db.Column("json_xml", db.JSON)
