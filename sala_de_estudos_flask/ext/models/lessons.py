@@ -8,7 +8,7 @@ class Lesson(db.Model):
     id = db.Column("id", db.Integer, primary_key=True, autoincrement=True)
     lesson_index = db.Column("lesson_index", db.Unicode(10), nullable=False, index=True)
     title = db.Column("title", db.Unicode(100), nullable=False)
-    length = db.Column("length", db.Integer)
+    length = db.Column("length", db.Time())
     original_url = db.Column("original_url", db.Unicode(), nullable=False)
     xml_file = db.Column('xml_file', db.Unicode(length=100), nullable=False)
     index_file = db.Column("index_file", db.Unicode(100), nullable=False)
@@ -33,13 +33,8 @@ class Lesson(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Lesson: "
-                f"id: {self.id}, "
-                f"index: {self.index}, "
-                f"title: {self.title}, "
-                f"length: {self.length}, "
-                f"url: {self.url}, "
-                f"subject_id: {self.subject_id}"
+        return (f"<Lesson: {self.lesson_index}, "
+                f"title: {self.title}"
                 f">")
 
 

@@ -17,7 +17,7 @@ class Subject(db.Model):
     name = db.Column("name", db.Unicode(70), nullable=False)
     type = db.Column("type", db.Enum(SubjectTypeEnum), nullable=False)
 
-    workload = db.Column("workload", db.Time(), nullable=False)
+    workload = db.Column("workload", db.Integer, nullable=False)
     amount_lessons = db.Column("amount_lessons", db.Integer, nullable=False, default=0)
 
     drive_link = db.Column("drive_link", db.Unicode())
@@ -34,15 +34,8 @@ class Subject(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Subject: "
-                f"id: {self.id}, "
-                f"code: {self.code}, "
-                f"name: {self.name}, "
-                f"type: {self.type}, "
-                f"workload: {self.workload}, "
-                f"drive_link: {self.drive_link}, "
-                f"whatsapp_link: {self.whatsapp_link}, "
-                f"github_link: {self.github_link}"
+        return (f"<Subject: {self.name}, "
+                f"code: {self.code}"
                 f">")
 
 
@@ -70,6 +63,6 @@ class ProfessorSubject(db.Model):
 
     def __repr__(self):
         return (f"<ProfessorSubject: "
-                f"subject_id: {self.subject_id}, "
-                f"professor_id: {self.professor_id}"
+                f"subject: {self.subject.name}, "
+                f"professor: {self.professor.name}"
                 f">")
