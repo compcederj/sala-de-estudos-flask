@@ -9,7 +9,7 @@ clean:
 	rm -rf htmlcov
 	rm -rf .tox/
 	rm -rf docs/_build
-	pip install -e .[dev] --upgrade --no-cache
+	python -m pip install -e .[dev] --upgrade --no-cache
 
 format:
 	dephell deps convert
@@ -17,7 +17,7 @@ format:
 	black -l 79 **/*.py
 
 install:
-	pip install -e .
+	python -m pip install -e .
 
 install-dev:
 	poetry install
@@ -30,5 +30,5 @@ run:
 
 test:
 	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=test flask create-database
-	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=test pytest tests/ -v --cov=holiday_api
+	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=test pytest tests/ -v --cov=sala_de_estudos_flask
 	FLASK_APP=sala_de_estudos_flask/app.py FLASK_ENV=test flask drop-database
