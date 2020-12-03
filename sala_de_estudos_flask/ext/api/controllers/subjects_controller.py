@@ -1,6 +1,6 @@
 from http.client import NOT_FOUND
 
-from sala_de_estudos_flask.ext.api.controllers import Controller
+from sala_de_estudos_flask.ext.api.controllers.controller import Controller
 from sala_de_estudos_flask.ext.dao.subject_dao import SubjectsDAO
 from sala_de_estudos_flask.ext.models.subjects import SubjectTypeEnum
 
