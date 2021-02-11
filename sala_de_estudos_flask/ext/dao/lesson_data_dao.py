@@ -1,5 +1,5 @@
 from sala_de_estudos_flask.ext.db import db
-from sala_de_estudos_flask.ext.models import LessonData, Lesson
+from sala_de_estudos_flask.ext.models import Lesson, LessonData
 
 
 class LessonDataDAO:

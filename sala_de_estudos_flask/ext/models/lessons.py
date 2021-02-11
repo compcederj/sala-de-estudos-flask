@@ -1,6 +1,6 @@
 from sala_de_estudos_flask.ext.db import db
-from sala_de_estudos_flask.ext.models.subjects import Subject
 from sala_de_estudos_flask.ext.models.professors import Professor
+from sala_de_estudos_flask.ext.models.subjects import Subject
 
 
 class Lesson(db.Model):

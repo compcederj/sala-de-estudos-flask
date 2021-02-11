@@ -1,4 +1,4 @@
-from typing import List, Dict, Union
+from typing import Dict, List, Union
 
 from sala_de_estudos_flask.ext.db import db
 from sala_de_estudos_flask.ext.models.subjects import Subject

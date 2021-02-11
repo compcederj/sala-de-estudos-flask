@@ -1,6 +1,6 @@
 from abc import ABC
 
-from flask import jsonify, request, redirect
+from flask import jsonify, redirect, request
 
 
 class Controller(ABC):
