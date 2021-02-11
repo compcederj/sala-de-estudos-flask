@@ -17,12 +17,9 @@ class Controller(ABC):
 
     @staticmethod
     def make_error(status_code, status, description):
-        response = jsonify({
-            "http_status": status_code,
-            "status": status,
-            "code": status_code,
-            "description": description
-        })
+        response = jsonify(
+            {"http_status": status_code, "status": status, "code": status_code, "description": description}
+        )
         response.status_code = status_code
         return response
 

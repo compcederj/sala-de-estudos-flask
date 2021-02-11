@@ -5,17 +5,11 @@ from sala_de_estudos_flask.ext.models.subjects import Subject
 
 
 class SubjectsDAO:
-
     @staticmethod
     def list_all() -> List[Dict[str, Union[int, str]]]:
         subjects = db.session.query(Subject.id, Subject.code, Subject.name, Subject.material_design_icon).all()
         subjects = [
-            {
-                "id": subject[0],
-                "code": subject[1],
-                "name": subject[2],
-                "material_design_icon": subject[3]
-            }
+            {"id": subject[0], "code": subject[1], "name": subject[2], "material_design_icon": subject[3]}
             for subject in subjects
         ]
         return subjects

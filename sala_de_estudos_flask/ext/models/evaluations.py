@@ -28,10 +28,7 @@ class EvaluationKey(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<EvaluationKey: "
-                f"id: {self.id}, "
-                f"description: {self.description}"
-                f">")
+        return f"<EvaluationKey: " f"id: {self.id}, " f"description: {self.description}" f">"
 
     def __str__(self):
         return self.description
@@ -47,14 +44,11 @@ class Evaluation(db.Model):
         "evaluation_key_id",
         db.Integer,
         db.ForeignKey("evaluation_keys.id", onupdate="CASCADE", ondelete="CASCADE"),
-        nullable=False
+        nullable=False,
     )
     download_link = db.Column("download_link", db.Unicode(), nullable=False)
     subject_id = db.Column(
-        "subject_id",
-        db.Integer,
-        db.ForeignKey("subjects.id", ondelete="CASCADE", onupdate="CASCADE"),
-        nullable=False
+        "subject_id", db.Integer, db.ForeignKey("subjects.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=False
     )
     created_at = db.Column("created_at", db.DateTime(), server_default=db.func.now())
     updated_at = db.Column("updated_at", db.DateTime(), server_default=db.func.now(), onupdate=db.func.now())
@@ -67,15 +61,17 @@ class Evaluation(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Evaluation: "
-                f"id: {self.id}, "
-                f"type: {self.type}, "
-                f"year: {self.year}, "
-                f"period: {self.period}, "
-                f"evaluation_key_id: {self.evaluation_key_id}, "
-                f"download_link: {self.download_link}, "
-                f"subject_id: {self.subject_id}"
-                f">")
+        return (
+            f"<Evaluation: "
+            f"id: {self.id}, "
+            f"type: {self.type}, "
+            f"year: {self.year}, "
+            f"period: {self.period}, "
+            f"evaluation_key_id: {self.evaluation_key_id}, "
+            f"download_link: {self.download_link}, "
+            f"subject_id: {self.subject_id}"
+            f">"
+        )
 
     def __str__(self):
         return f"{self.subject.name}_{self.year}.{self.period}_{self.type}"
