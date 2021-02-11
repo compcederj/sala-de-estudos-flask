@@ -15,5 +15,5 @@ class LessonDataController(Controller):
             NOT_FOUND,
             "Not Found",
             f"It was not possible to find lesson data for subject_id {subject_id} and lesson_id {lesson_id}."
-            "Try another subject_id and lesson_id."
+            "Try another subject_id and lesson_id.",
         )

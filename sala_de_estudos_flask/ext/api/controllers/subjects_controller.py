@@ -24,15 +24,11 @@ class SubjectsController(Controller):
                 "workload": subject.workload,
                 "amount_lessons": subject.amount_lessons,
                 "drive_link": subject.drive_link,
-                "github_link": subject.github_link
+                "github_link": subject.github_link,
             }
             return self.as_json(data)
         else:
-            return self.make_error(
-                status_code=NOT_FOUND,
-                status="Not Found",
-                description="Subject was not found"
-            )
+            return self.make_error(status_code=NOT_FOUND, status="Not Found", description="Subject was not found")
 
     def redirect_whatsapp(self, id_):
         whatsapp_link = SubjectsDAO.get_whatsapp_link_by_id(id_)

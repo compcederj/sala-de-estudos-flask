@@ -2,7 +2,7 @@ from flask import Flask
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
-from sala_de_estudos_flask.ext.admin.evaluations_view import EvaluationsView, EvaluationKeyView
+from sala_de_estudos_flask.ext.admin.evaluations_view import EvaluationKeyView, EvaluationsView
 from sala_de_estudos_flask.ext.admin.lessons_admin import LessonsView
 from sala_de_estudos_flask.ext.admin.professors_admin import ProfessorsView
 from sala_de_estudos_flask.ext.admin.subjects_admin import SubjectsView
@@ -10,7 +10,7 @@ from sala_de_estudos_flask.ext.db import db
 from sala_de_estudos_flask.ext.models.evaluations import Evaluation, EvaluationKey
 from sala_de_estudos_flask.ext.models.lessons import Lesson, ProfessorLesson
 from sala_de_estudos_flask.ext.models.professors import Professor
-from sala_de_estudos_flask.ext.models.subjects import Subject, ProfessorSubject
+from sala_de_estudos_flask.ext.models.subjects import ProfessorSubject, Subject
 
 admin = Admin()
 

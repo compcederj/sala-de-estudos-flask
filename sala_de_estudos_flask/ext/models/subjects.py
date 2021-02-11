@@ -34,24 +34,19 @@ class Subject(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Subject: {self.name}, "
-                f"code: {self.code}"
-                f">")
+        return f"<Subject: {self.name}, " f"code: {self.code}" f">"
 
 
 class ProfessorSubject(db.Model):
     __tablename__ = "professors_subjects"
     subject_id = db.Column(
-        "subject_id",
-        db.Integer,
-        db.ForeignKey("subjects.id", onupdate="CASCADE"),
-        primary_key=True
+        "subject_id", db.Integer, db.ForeignKey("subjects.id", onupdate="CASCADE"), primary_key=True
     )
     professor_id = db.Column(
         "professor_id",
         db.Integer,
         db.ForeignKey("professors.id", ondelete="SET NULL", onupdate="CASCADE"),
-        primary_key=True
+        primary_key=True,
     )
 
     subject = db.relationship(Subject, backref="professor_subject")
@@ -62,7 +57,4 @@ class ProfessorSubject(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<ProfessorSubject: "
-                f"subject: {self.subject.name}, "
-                f"professor: {self.professor.name}"
-                f">")
+        return f"<ProfessorSubject: " f"subject: {self.subject.name}, " f"professor: {self.professor.name}" f">"
