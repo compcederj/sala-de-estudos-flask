@@ -13,8 +13,8 @@ clean:
 
 format:
 	dephell deps convert
-	isort **/*.py
-	black -l 79 **/*.py
+	python -m isort -l 119 **/*.py
+	python -m black -l 119 **/*.py
 
 install:
 	python -m pip install -e .

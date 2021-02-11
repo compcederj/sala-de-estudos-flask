@@ -15,12 +15,14 @@ class Professor(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return (f"<Professor: "
-                f"id: {self.id}, "
-                f"name: {self.name}, "
-                f"email: {self.email}, "
-                f"site: {self.site}"
-                f">")
+        return (
+            f"<Professor: "
+            f"id: {self.id}, "
+            f"name: {self.name}, "
+            f"email: {self.email}, "
+            f"site: {self.site}"
+            f">"
+        )
 
     def __str__(self):
         return self.name

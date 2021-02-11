@@ -17,7 +17,7 @@ class LessonData(db.Model):
         db.Integer,
         db.ForeignKey("lessons.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
-        unique=True
+        unique=True,
     )
 
     created_at = db.Column("created_at", db.DateTime(), server_default=db.func.now())

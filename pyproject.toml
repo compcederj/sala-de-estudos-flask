@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sala-de-estudos-flask"
-version = "1.0.1"
+version = "1.1.0"
 description = ""
 authors = ["Thiago da Cunha Borges <thiagoborges@id.uff.br>"]
 

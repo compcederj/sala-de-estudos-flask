@@ -5,7 +5,6 @@ from sala_de_estudos_flask.ext.dao.lessons_dao import LessonsDAO
 
 
 class LessonsController(Controller):
-
     def list(self, subject_id):
         lessons = LessonsDAO.list_lessons_by_subject(subject_id)
 
@@ -15,6 +14,5 @@ class LessonsController(Controller):
         return self.make_error(
             NOT_FOUND,
             "Not Found",
-            f"It was not possible to find lessons for subject_id {subject_id}."
-            "Try another subject."
+            f"It was not possible to find lessons for subject_id {subject_id}." "Try another subject.",
         )
