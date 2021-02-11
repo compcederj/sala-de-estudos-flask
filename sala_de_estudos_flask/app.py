@@ -7,8 +7,8 @@ def create_app() -> Flask:
     app = Flask(__name__)
     config.init_app(app)
 
-    # @app.route("/")
-    # def home():
-    #     return redirect("/admin")
+    @app.route("/")
+    def home():
+        return redirect("http://saladeestudos.esy.es")
 
     return app
