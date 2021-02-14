@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  app:
+    image: hub.docker.com/${{ secrets.CONTAINER_REGISTRY_NAME }}:${{ github.sha }}
+    env_file: ${{ secrets.CONTAINER_REGISTRY_NAME }}.env
+    networks:
+      - sala-de-estudos-flask-network
+    deploy:
+        replicas: 1
+        update_config:
+            parallelism: 1
+            order: start-first
+            failure_action: rollback
+            delay: 10s
+        rollback_config:
+            parallelism: 0
+            order: stop-first
+        restart_policy:
+            condition: on-failure
+            delay: 5s
+            window: 120s
+    tty: true
+
+networks:
+  sala-de-estudos-flask-network:
+
