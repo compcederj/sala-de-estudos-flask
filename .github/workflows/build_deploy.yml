@@ -1,0 +1,102 @@
+name: PythonSalaDeEstudos
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+    - 'docs/**'
+    - 'scripts/**'
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-18.04
+
+    # Github Action Workflow
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+    # Deploy
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build . -f Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.CONTAINER_REGISTRY_NAME }}:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.CONTAINER_REGISTRY_NAME }}:${{ github.sha }}
+
+      - name: Copy file via SSH key
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AZURE_DEV_DEPLOY_HOST }}
+          username: ${{ secrets.AZURE_DEV_DEPLOY_USER }}
+          key: ${{ secrets.AZURE_DEV_DEPLOY_KEY }}
+          port: ${{ secrets.AZURE_DEV_DEPLOY_PORT }}
+          source: "${{ secrets.CONTAINER_REGISTRY_NAME }}-docker-stack.yml"
+          target: "~/deploy"
+          overwrite: true
+
+      - name: 'Deploy to Azure VM'
+        uses: appleboy/ssh-action@master
+        env:
+          REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          CONTAINER_REGISTRY_NAME: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+          AWS_EC2_RSERVER_KEY: ${{ secrets.AWS_EC2_RSERVER_KEY }}
+        with:
+          host: ${{ secrets.AZURE_DEV_DEPLOY_HOST }}
+          username: ${{ secrets.AZURE_DEV_DEPLOY_USER }}
+          key: ${{ secrets.AZURE_DEV_DEPLOY_KEY }}
+          port: ${{ secrets.AZURE_DEV_DEPLOY_PORT }}
+          envs: REGISTRY_LOGIN_SERVER, CONTAINER_REGISTRY_NAME, AWS_EC2_RSERVER_KEY
+          script: |
+            echo "# VERSION $REGISTRY_LOGIN_SERVER/$CONTAINER_REGISTRY_NAME:${{ github.sha }}
+
+            PGHOST=${{ secrets.PGHOST }}
+            PGPORT=${{ secrets.PGPORT }}
+            PGDATABASE=${{ secrets.PGDATABASE }}
+            PGUSER=${{ secrets.PGUSER }}
+            PGPASSWORD=${{ secrets.PGPASSWORD }}
+
+            SELENIUM_GRID_IP=selenium
+            INFRA=docker
+            HEADLESS=False
+            BROWSER=chrome
+            DATE=today
+
+            M4U_USER=${{ secrets.M4U_USER }}
+            M4U_PASS=${{ secrets.M4U_PASS }}
+            LOGIN_SITE=${{ secrets.LOGIN_SITE }}
+            DOWNLOAD_SITE=${{ secrets.DOWNLOAD_SITE }}
+
+            TELEGRAM_WARNINGS=${{ secrets.TELEGRAM_WARNINGS }}
+            TELEGRAM_BOT_TI=${{ secrets.TELEGRAM_BOT_TI }}
+            TELEGRAM_INFO=${{ secrets.TELEGRAM_INFO }}
+            TELEGRAM_BUSINESS=${{ secrets.TELEGRAM_BUSINESS }}
+
+            TELEGRAM_GROUP=-${{ secrets.TELEGRAM_GROUP }}
+            TELEGRAM_ALERT_GROUP=${{ secrets.TELEGRAM_ALERT_GROUP }}
+            TELEGRAM_INFO_GROUP=${{ secrets.TELEGRAM_INFO_GROUP }}
+            TELEGRAM_BORGES=${{ secrets.TELEGRAM_BORGES }}
+            TELEGRAM_GROUP_TI_ISSUES=${{ secrets.TELEGRAM_GROUP_TI_ISSUES }}
+            TELEGRAM_OI_AQUISICAO=${{ secrets.TELEGRAM_OI_AQUISICAO }}" > ~/deploy/${{ secrets.CONTAINER_REGISTRY_NAME }}.env
+
+            cd ~/deploy
+            sed -i "s/GITHUB_HASH_TAG/${{ github.sha }}/g" ${{ secrets.CONTAINER_REGISTRY_NAME }}-docker-stack.yml
+
+            echo "${AWS_EC2_RSERVER_KEY}" > ~/deploy/AWS_EC2_RSERVER_KEY
+
+            chmod 600 AWS_EC2_RSERVER_KEY
+
+            scp -i AWS_EC2_RSERVER_KEY ${{ secrets.CONTAINER_REGISTRY_NAME }}-docker-stack.yml ${{ secrets.AWS_EC2_RSERVER_USER }}@${{ secrets.AWS_EC2_RSERVER_HOST }}:/home/${{ secrets.AWS_EC2_RSERVER_USER }}/deploy/${{ secrets.CONTAINER_REGISTRY_NAME }}/
+            scp -i AWS_EC2_RSERVER_KEY ${{ secrets.CONTAINER_REGISTRY_NAME }}.env ${{ secrets.AWS_EC2_RSERVER_USER }}@${{ secrets.AWS_EC2_RSERVER_HOST }}:/home/${{ secrets.AWS_EC2_RSERVER_USER }}/deploy/${{ secrets.CONTAINER_REGISTRY_NAME }}/
+
+            ssh -i AWS_EC2_RSERVER_KEY ${{ secrets.AWS_EC2_RSERVER_USER }}@${{ secrets.AWS_EC2_RSERVER_HOST }} docker stack deploy --compose-file=/home/${{ secrets.AWS_EC2_RSERVER_USER }}/deploy/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.CONTAINER_REGISTRY_NAME }}-docker-stack.yml ${{ secrets.CONTAINER_REGISTRY_NAME }} --with-registry-auth
+
+            rm -f AWS_EC2_RSERVER_KEY ${{ secrets.CONTAINER_REGISTRY_NAME }}-docker-stack.yml ${{ secrets.CONTAINER_REGISTRY_NAME }}.env
