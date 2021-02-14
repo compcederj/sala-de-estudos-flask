@@ -1,10 +1,41 @@
 version: "3.8"
 services:
-  app:
-    image: hub.docker.com/${{ secrets.CONTAINER_REGISTRY_NAME }}:${{ github.sha }}
-    env_file: ${{ secrets.CONTAINER_REGISTRY_NAME }}.env
+  api:
+    image: hub.docker.com/sala-de-estudos-flask:GITHUB_HASH_TAG
+    command: gunicorn --workers=5 --threads=2 --bind 0.0.0.0:5000 'sala_de_estudos_flask.app:create_app()'
+    env_file: sala-de-estudos-flask.env
+    ports:
+      - 5000:5000
     networks:
       - sala-de-estudos-flask-network
+    deploy:
+        replicas: 1
+        update_config:
+            parallelism: 1
+            order: start-first
+            failure_action: rollback
+            delay: 10s
+        rollback_config:
+            parallelism: 0
+            order: stop-first
+        restart_policy:
+            condition: on-failure
+            delay: 5s
+            window: 120s
+    tty: true
+    
+  db:
+    image: postgres:12.5
+    networks:
+      - sala-de-estudos-flask-network
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=PSQL_PWD
+      - POSTGRES_USER=PSQL_USER
+      - POSTGRES_DB=PSQL_DB
     deploy:
         replicas: 1
         update_config:
