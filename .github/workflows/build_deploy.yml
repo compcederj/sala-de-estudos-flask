@@ -76,8 +76,8 @@ jobs:
           script: |
             echo "# VERSION $CONTAINER_REGISTRY_NAME:${{ github.sha }}
             
-            FLASK_APP=app.py
-            FLASK_ENV=development
+            FLASK_APP=saladeestudos/app.py
+            FLASK_ENV=production
             SQL_HOST=db
             SQL_PORT=5432
             DATABASE=postgres
