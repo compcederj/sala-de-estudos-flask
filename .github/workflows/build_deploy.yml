@@ -36,8 +36,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          imageName: thcborges/${{ secrets.CONTAINER_REGISTRY_NAME }}
-          publish: true
+          imageName: thcborges/sala-de-estudos-flask
           push: true
           tags: ${{ secrets.CONTAINER_REGISTRY_NAME }}:${{ github.sha }},${{ secrets.CONTAINER_REGISTRY_NAME }}:latest
       
