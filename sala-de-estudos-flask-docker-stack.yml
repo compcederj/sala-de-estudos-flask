@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   api:
-    image: thcborges/sala-de-estudos-flask:GITHUB_HASH_TAG
+    image: hub.docker.com/sala-de-estudos-flask:GITHUB_HASH_TAG
     command: gunicorn --workers=5 --threads=2 --bind 0.0.0.0:5000 'sala_de_estudos_flask.app:create_app()'
     env_file: sala-de-estudos-flask.env
     ports:
