@@ -14,7 +14,7 @@ readme = ""
 setup(
     long_description=readme,
     name="sala-de-estudos-flask",
-    version="1.2.1",
+    version="1.2.2",
     python_requires="==3.*,>=3.8.0",
     author="Thiago da Cunha Borges",
     author_email="thiagoborges@id.uff.br",
@@ -36,6 +36,7 @@ setup(
         "email-validator==1.*,>=1.1.1",
         "flask==1.*,>=1.1.2",
         "flask-admin==1.*,>=1.5.6",
+        "flask-cors==3.*,>=3.0.10",
         "flask-migrate==2.*,>=2.5.3",
         "flask-sqlalchemy==2.*,>=2.4.4",
         "flask-wtf==0.*,>=0.14.3",
