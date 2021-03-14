@@ -9,38 +9,52 @@ try:
 except ImportError:
     from distutils.core import setup
 
-readme = ''
+readme = ""
 
 setup(
     long_description=readme,
-    name='sala-de-estudos-flask',
-    version='1.1.0',
-    python_requires='==3.*,>=3.8.0',
-    author='Thiago da Cunha Borges',
-    author_email='thiagoborges@id.uff.br',
+    name="sala-de-estudos-flask",
+    version="1.2.0",
+    python_requires="==3.*,>=3.8.0",
+    author="Thiago da Cunha Borges",
+    author_email="thiagoborges@id.uff.br",
     packages=[
-        'sala_de_estudos_flask', 'sala_de_estudos_flask.ext',
-        'sala_de_estudos_flask.ext.admin', 'sala_de_estudos_flask.ext.api',
-        'sala_de_estudos_flask.ext.api.controllers',
-        'sala_de_estudos_flask.ext.cli', 'sala_de_estudos_flask.ext.dao',
-        'sala_de_estudos_flask.ext.db', 'sala_de_estudos_flask.ext.models'
+        "sala_de_estudos_flask",
+        "sala_de_estudos_flask.ext",
+        "sala_de_estudos_flask.ext.admin",
+        "sala_de_estudos_flask.ext.api",
+        "sala_de_estudos_flask.ext.api.controllers",
+        "sala_de_estudos_flask.ext.cli",
+        "sala_de_estudos_flask.ext.dao",
+        "sala_de_estudos_flask.ext.db",
+        "sala_de_estudos_flask.ext.db.seeders",
+        "sala_de_estudos_flask.ext.models",
     ],
     package_dir={"": "."},
     package_data={"sala_de_estudos_flask": ["*.sqlite"]},
     install_requires=[
-        'dynaconf==3.*,>=3.1.0', 'email-validator==1.*,>=1.1.1',
-        'flask==1.*,>=1.1.2', 'flask-admin==1.*,>=1.5.6',
-        'flask-migrate==2.*,>=2.5.3', 'flask-sqlalchemy==2.*,>=2.4.4',
-        'flask-wtf==0.*,>=0.14.3', 'gunicorn==20.*,>=20.0.4',
-        'ipdb==0.*,>=0.13.3', 'psycopg2-binary==2.*,>=2.8.5'
+        "dynaconf==3.*,>=3.1.0",
+        "email-validator==1.*,>=1.1.1",
+        "flask==1.*,>=1.1.2",
+        "flask-admin==1.*,>=1.5.6",
+        "flask-migrate==2.*,>=2.5.3",
+        "flask-sqlalchemy==2.*,>=2.4.4",
+        "flask-wtf==0.*,>=0.14.3",
+        "gunicorn==20.*,>=20.0.4",
+        "ipdb==0.*,>=0.13.3",
+        "psycopg2-binary==2.*,>=2.8.5",
     ],
     extras_require={
         "dev": [
-            "black==20.*,>=20.8.0.b1", "flake8==3.*,>=3.8.3",
+            "black==20.*,>=20.8.0.b1",
+            "flake8==3.*,>=3.8.3",
             "flask-debugtoolbar==0.*,>=0.11.0",
-            "flask-shell-ipython==0.*,>=0.4.1", "isort==5.*,>=5.4.2",
-            "pytest==6.*,>=6.0.1", "pytest-cov==2.*,>=2.10.1",
-            "pytest-flask==1.*,>=1.0.0", "pytest-sugar==0.*,>=0.9.4"
+            "flask-shell-ipython==0.*,>=0.4.1",
+            "isort==5.*,>=5.4.2",
+            "pytest==6.*,>=6.0.1",
+            "pytest-cov==2.*,>=2.10.1",
+            "pytest-flask==1.*,>=1.0.0",
+            "pytest-sugar==0.*,>=0.9.4",
         ]
     },
 )

@@ -1,7 +1,6 @@
 from enum import Enum
 
 from sala_de_estudos_flask.ext.db import db
-# from sala_de_estudos_flask.ext.models import Subject
 from sala_de_estudos_flask.ext.models.subjects import Subject
 
 

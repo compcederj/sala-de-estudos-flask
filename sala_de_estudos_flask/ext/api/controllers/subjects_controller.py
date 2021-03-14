@@ -15,6 +15,13 @@ class SubjectsController(Controller):
 
     def get(self, id_):
         subject = SubjectsDAO().get_by_id(id_)
+        return self.serialize(subject)
+
+    def get_by_code(self, code):
+        subject = SubjectsDAO().get_by_code(code)
+        return self.serialize(subject)
+
+    def serialize(self, subject):
         if subject:
             data = {
                 "id": subject.id,
