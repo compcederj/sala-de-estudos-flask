@@ -20,6 +20,11 @@ class SubjectsDAO:
         return subject
 
     @staticmethod
+    def get_by_code(code_) -> Subject:
+        subject = db.session.query(Subject).filter(Subject.code == code_).first()
+        return subject
+
+    @staticmethod
     def get_whatsapp_link_by_id(id_) -> str:
         whatsapp_link = db.session.query(Subject.whatsapp_link).filter(Subject.id == id_).first()
         if whatsapp_link:
