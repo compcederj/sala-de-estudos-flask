@@ -16,9 +16,11 @@ def subjects_route():
 def subject_route(id_: int):
     return SubjectsController().get(id_)
 
-@bp.route("/api/v1/subject/<str:code_>/code")
-def subject_route(code_: str):
-    return SubjectsController().get(code_)
+
+@bp.route("/api/v1/subject/<str:code>/code")
+def subject_route(code: str):
+    return SubjectsController().get_by_code(code)
+
 
 @bp.route("/redirect/subject/<int:id_>/whatsapp/")
 def subject_whatsapp_route(id_: int):
