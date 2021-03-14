@@ -27,7 +27,6 @@ setup(
         "sala_de_estudos_flask.ext.cli",
         "sala_de_estudos_flask.ext.dao",
         "sala_de_estudos_flask.ext.db",
-        "sala_de_estudos_flask.ext.db.seeders",
         "sala_de_estudos_flask.ext.models",
     ],
     package_dir={"": "."},
