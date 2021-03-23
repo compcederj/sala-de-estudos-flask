@@ -22,6 +22,7 @@ class Subject(db.Model):
 
     drive_link = db.Column("drive_link", db.Unicode())
     whatsapp_link = db.Column("whatsapp_link", db.Unicode())
+    telegram_link = db.Column("telegram_link", db.Unicode())
     github_link = db.Column("github_link", db.Unicode())
 
     material_design_icon = db.Column("material_design_icon", db.Unicode())

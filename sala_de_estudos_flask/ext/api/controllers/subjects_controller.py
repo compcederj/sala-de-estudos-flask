@@ -43,3 +43,10 @@ class SubjectsController(Controller):
             return self.redirect(whatsapp_link)
         else:
             return NOT_FOUND
+
+    def redirect_telegram(self, id_):
+        telegram_link = SubjectsDAO.get_telegram_link_by_id(id_)
+        if telegram_link:
+            return self.redirect(telegram_link)
+        else:
+            return NOT_FOUND
