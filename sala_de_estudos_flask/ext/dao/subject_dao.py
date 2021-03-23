@@ -30,3 +30,10 @@ class SubjectsDAO:
         if whatsapp_link:
             return whatsapp_link[0]
         return ""
+
+    @staticmethod
+    def get_telegram_link_by_id(id_) -> str:
+        telegram_link = db.session.query(Subject.telegram_link).filter(Subject.id == id_).first()
+        if telegram_link:
+            return telegram_link[0]
+        return ""

@@ -27,6 +27,11 @@ def subject_whatsapp_route(id_: int):
     return SubjectsController().redirect_whatsapp(id_)
 
 
+@bp.route("/redirect/subject/<int:id_>/telegram/")
+def subject_telegram_route(id_: int):
+    return SubjectsController().redirect_telegram(id_)
+
+
 @bp.route("/api/v1/subject/<int:subject_id>/lessons/")
 def lessons_route(subject_id):
     return LessonsController().list(subject_id)
