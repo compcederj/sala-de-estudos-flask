@@ -17,6 +17,7 @@ psycopg2-binary = "^2.8.5"
 flask-wtf = "^0.14.3"
 email_validator = "^1.1.1"
 Flask-Cors = "^3.0.10"
+connexion = {extras = ["swagger-ui"], version = "^2.7.0"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.0.1"
