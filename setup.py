@@ -32,6 +32,7 @@ setup(
     package_dir={"": "."},
     package_data={"sala_de_estudos_flask": ["*.sqlite"]},
     install_requires=[
+        "connexion[swagger-ui]==2.*,>=2.7.0",
         "dynaconf==3.*,>=3.1.0",
         "email-validator==1.*,>=1.1.1",
         "flask==1.*,>=1.1.2",

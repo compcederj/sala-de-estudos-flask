@@ -1,0 +1,240 @@
+swagger: "2.0"
+info:
+  title: Sala de Estudos
+  description: Sala de Estudos API documentation
+  version: "1.0.0"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api/v2"
+
+paths:
+  /subjects/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.subjects_controller.SubjectsController.list_all
+      tags:
+        - Subjects
+      summary: Get the entire list of subjects
+      description: Get the list of subjects
+      responses:
+        200:
+          description: "Successful read subjects operation"
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: Id of the subject
+                code:
+                  type: string
+                  description: Code of the subject in the RNP servers
+                name:
+                  type: string
+                  description: Name of the subject
+                material_design_icon:
+                  type: string
+                  description: Material design icon to ilustrate de subject
+
+  /subjects/{subject_id}/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.subjects_controller.SubjectsController.get
+      tags:
+        - Subjects
+      summary: Get details of subject_id
+      description: Returns all the details of a subject whose id is {subject_id}
+      parameters:
+        - name: subject_id
+          in: path
+          type: integer
+          required: true
+          description: Id of the subject
+      responses:
+        200:
+          description: "Successful get a subject"
+          schema:
+            properties:
+              id:
+                type: integer
+                description: Id of the subject
+              code:
+                type: string
+                description: Code of the subject in the RNP servers
+              name:
+                type: string
+                description: Id of the person
+              type:
+                type: string
+                description: Name of the subject
+              workload:
+                type: integer
+                description: Total of hours of the subject
+              amount_lessons:
+                type: integer
+                description: Quantity of lessons for this subject
+              drive_link:
+                type: string
+                description: A link to access the test repository in Google Drive for this subject
+              github_link:
+                type: string
+                description: A link for the GitHub repository for this Subject
+        400:
+          description: "It was not possible to found a subject for this subject_id"
+          schema:
+            properties:
+              http_status:
+                type: integer
+                description: HTTP status code
+              status:
+                type: string
+                description: status of the request
+              code:
+                type: integer
+                description: HTTP status code
+              description:
+                type: string
+                description: Reaseon for this error
+
+  /subjects/code/{code}/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.subjects_controller.SubjectsController.get_by_code
+      tags:
+        - Subjects
+      summary: Get details of given RNP subject code
+      description: Returns all the details of a subject whose RNP code is {code}
+      parameters:
+        - name: code
+          in: path
+          type: string
+          required: true
+          description: RNP code of the subject
+      responses:
+        200:
+          description: "Successful get a subject"
+          schema:
+            properties:
+              id:
+                type: integer
+                description: Id of the subject
+              code:
+                type: string
+                description: Code of the subject in the RNP servers
+              name:
+                type: string
+                description: Id of the person
+              type:
+                type: string
+                description: Name of the subject
+              workload:
+                type: integer
+                description: Total of hours of the subject
+              amount_lessons:
+                type: integer
+                description: Quantity of lessons for this subject
+              drive_link:
+                type: string
+                description: A link to access the test repository in Google Drive for this subject
+              github_link:
+                type: string
+                description: A link for the GitHub repository for this Subject
+        400:
+          description: "It was not possible to found a subject for this RNP code"
+          schema:
+            properties:
+              http_status:
+                type: integer
+                description: HTTP status code
+              status:
+                type: string
+                description: status of the request
+              code:
+                type: integer
+                description: HTTP status code
+              description:
+                type: string
+                description: Reaseon for this error
+
+  /subjects/{subject_id}/lessons/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.lessons_controller.LessonsController.list
+      tags:
+        - Lessons
+      summary: Get all lessons of a subject
+      description: Returns a list of all lessons of a given {subject_id}
+      parameters:
+        - name: subject_id
+          in: path
+          description: Id of the subject
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully got a list of lessons for a {subject_id}
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: Id of the lesson
+                title:
+                  type: string
+                  description: Title of the lesson
+                lesson_index:
+                  type: string
+                  description: Index of this subject lesson
+                thumbnail:
+                  type: string
+                  description: URL to a picture to ilustrate this class
+        400:
+          description: "It was not possible to found a subject for this RNP code"
+          schema:
+            properties:
+              http_status:
+                type: integer
+                description: HTTP status code
+              status:
+                type: string
+                description: status of the request
+              code:
+                type: integer
+                description: HTTP status code
+              description:
+                type: string
+                description: Reaseon for this error
+
+  /subjects/{subject_id}/lessons/{lesson_id}/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.lesson_data_controller.LessonDataController.get
+      tags:
+        - Lessons
+      summary: Get data for render a video lesson
+      description: Returns data scraped from RNP to render a video lesson
+      parameters:
+        - name: subject_id
+          in: path
+          type: integer
+          description: Id of the subject
+          required: true
+        - name: lesson_id
+          in: path
+          type: integer
+          description: Id of the lesson
+          required: true
+      responses:
+        200:
+          description: Successfully get data to render a video lesson
+          schema:
+            type: object
+            properties:
+              main:
+                type: object
+                description: Metadata of the lesson
+              index:
+                type: object
+                description: Metadata of the index of the video lesson. Has the topics of the lesson index
+              sync:
+                type: object
+                description: Metadata to sync the video with the slide
