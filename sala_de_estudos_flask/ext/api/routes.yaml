@@ -204,3 +204,37 @@ paths:
               description:
                 type: string
                 description: Reaseon for this error
+
+  /subjects/{subject_id}/lessons/{lesson_id}/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.lesson_data_controller.LessonDataController.get
+      tags:
+        - Lessons
+      summary: Get data for render a video lesson
+      description: Returns data scraped from RNP to render a video lesson
+      parameters:
+        - name: subject_id
+          in: path
+          type: integer
+          description: Id of the subject
+          required: true
+        - name: lesson_id
+          in: path
+          type: integer
+          description: Id of the lesson
+          required: true
+      responses:
+        200:
+          description: Successfully get data to render a video lesson
+          schema:
+            type: object
+            properties:
+              main:
+                type: object
+                description: Metadata of the lesson
+              index:
+                type: object
+                description: Metadata of the index of the video lesson. Has the topics of the lesson index
+              sync:
+                type: object
+                description: Metadata to sync the video with the slide
