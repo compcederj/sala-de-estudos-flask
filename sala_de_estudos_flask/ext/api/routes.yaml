@@ -155,3 +155,52 @@ paths:
               description:
                 type: string
                 description: Reaseon for this error
+
+  /subjects/{subject_id}/lessons/:
+    get:
+      operationId: sala_de_estudos_flask.ext.api.controllers.lessons_controller.LessonsController.list
+      tags:
+        - Lessons
+      summary: Get all lessons of a subject
+      description: Returns a list of all lessons of a given {subject_id}
+      parameters:
+        - name: subject_id
+          in: path
+          description: Id of the subject
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Successfully got a list of lessons for a {subject_id}
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: Id of the lesson
+                title:
+                  type: string
+                  description: Title of the lesson
+                lesson_index:
+                  type: string
+                  description: Index of this subject lesson
+                thumbnail:
+                  type: string
+                  description: URL to a picture to ilustrate this class
+        400:
+          description: "It was not possible to found a subject for this RNP code"
+          schema:
+            properties:
+              http_status:
+                type: integer
+                description: HTTP status code
+              status:
+                type: string
+                description: status of the request
+              code:
+                type: integer
+                description: HTTP status code
+              description:
+                type: string
+                description: Reaseon for this error
