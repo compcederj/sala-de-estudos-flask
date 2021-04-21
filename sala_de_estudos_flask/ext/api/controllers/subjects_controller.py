@@ -9,17 +9,20 @@ class SubjectsController(Controller):
     def __init__(self):
         super(SubjectsController, self).__init__()
 
-    def list_all(self):
+    @staticmethod
+    def list_all():
         subjects = SubjectsDAO().list_all()
-        return self.as_json(subjects)
+        return SubjectsController.as_json(subjects)
 
-    def get(self, id_):
+    @staticmethod
+    def get(id_):
         subject = SubjectsDAO().get_by_id(id_)
-        return self.serialize(subject)
+        return SubjectsController().serialize(subject)
 
-    def get_by_code(self, code):
+    @staticmethod
+    def get_by_code(code):
         subject = SubjectsDAO().get_by_code(code)
-        return self.serialize(subject)
+        return SubjectsController().serialize(subject)
 
     def serialize(self, subject):
         if subject:

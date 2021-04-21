@@ -1,3 +1,7 @@
+import os.path
+
+from connexion import FlaskApp
+from flask import Flask, redirect
 import json
 
 import click
@@ -15,6 +19,7 @@ from oauthlib.oauth2 import WebApplicationClient
 import requests
 
 from sala_de_estudos_flask.ext import config
+from sala_de_estudos_flask.ext.api import add_apis
 
 GOOGLE_CLIENT_ID = dynaconf.settings('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = dynaconf.settings('GOOGLE_CLIENT_SECRET')
@@ -48,7 +53,10 @@ class User(UserMixin):
 
 
 def create_app() -> Flask:
-    app = Flask(__name__)
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    connexion_app = FlaskApp(__name__, specification_dir=basedir)
+
+    app = connexion_app.app
     config.init_app(app)
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -57,6 +65,8 @@ def create_app() -> Flask:
     @login_manager.user_loader
     def load_user(user_id):
         return User.get(user_id)
+
+    add_apis(connexion_app)
 
     @app.route("/")
     def home():
